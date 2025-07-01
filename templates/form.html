@@ -1,68 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>🩺 Medical Bot - Disease Predictor</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- ✅ Bootstrap CDN for CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <style>
-        body {
-            background: #f0f2f5;
-            padding-top: 40px;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .prediction-box {
-            margin-top: 20px;
-            padding: 15px;
-            border-left: 6px solid #198754;
-            background-color: #e9fbee;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Medical Bot - Symptom Input</title>
 </head>
 <body>
-<div class="container">
-    <h2 class="title">🧠 Medical Disease Prediction Bot</h2>
-    
+    <h1>Medical Bot - Predict Disease</h1>
     <form method="POST" action="/predict">
-        <div class="row">
-            {% for index, symptom in symptom_list|enumerate %}
-            <div class="col-md-4 mb-2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="symptoms" value="{{ index }}">
-                    <label class="form-check-label">
-                        {{ symptom.replace("_", " ").capitalize() }}
-                    </label>
-                </div>
-            </div>
+        <label for="symptoms">Select your symptoms:</label>
+        <select name="symptoms" id="symptoms" multiple size="10">
+            {% for symptom in symptom_list %}
+                <option value="{{ loop.index0 }}">{{ symptom }}</option>
             {% endfor %}
-        </div>
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary mt-4">Predict Disease</button>
-        </div>
+        </select>
+        <br /><br />
+        <button type="submit">Predict</button>
     </form>
-
-    {% if predicted_disease %}
-    <div class="prediction-box mt-4">
-        <h5>Predicted Disease:</h5>
-        <p class="fw-bold text-success">{{ predicted_disease }}</p>
-    </div>
-    {% endif %}
-</div>
-
-<!-- ✅ Bootstrap CDN for JS (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
